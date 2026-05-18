@@ -20,6 +20,7 @@
 }
 
 .floating-item {
+  --offset-transform: translate(0, 0);
   position: absolute;
   width: 90px;
   height: 90px;
@@ -31,27 +32,28 @@
   cursor: pointer;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
   transition: all 0.35s ease;
+  transform: var(--offset-transform);
   z-index: 3;
 }
 
 .floating-item:hover {
-  transform: scale(1.08);
+  transform: var(--offset-transform) scale(1.08);
 }
 
 .floating-item.top {
-  transform: translateY(-230px);
+  --offset-transform: translateY(-230px);
 }
 
 .floating-item.right {
-  transform: translateX(300px);
+  --offset-transform: translateX(300px);
 }
 
 .floating-item.bottom {
-  transform: translateY(230px);
+  --offset-transform: translateY(230px);
 }
 
 .floating-item.left {
-  transform: translateX(-300px);
+  --offset-transform: translateX(-300px);
 }
 
 .floating-item.active {
@@ -63,7 +65,7 @@
 }
 
 .floating-item.active:hover {
-  transform: none;
+  transform: var(--offset-transform);
 }
 
 .floating-content h2 {
