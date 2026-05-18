@@ -1,0 +1,83 @@
+.portfolio-scene {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background: #f4f4f5;
+  overflow: hidden;
+}
+
+.center-card {
+  width: 360px;
+  min-height: 220px;
+  padding: 32px;
+  border-radius: 24px;
+  background: white;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  text-align: center;
+  z-index: 2;
+}
+
+.floating-item {
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: none;
+  background: #1976d2;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+  transition: all 0.35s ease;
+  z-index: 3;
+}
+
+.floating-item:hover {
+  transform: scale(1.08);
+}
+
+.floating-item.top {
+  transform: translateY(-230px);
+}
+
+.floating-item.right {
+  transform: translateX(300px);
+}
+
+.floating-item.bottom {
+  transform: translateY(230px);
+}
+
+.floating-item.left {
+  transform: translateX(-300px);
+}
+
+.floating-item.active {
+  width: 260px;
+  height: 180px;
+  border-radius: 24px;
+  padding: 20px;
+  text-align: left;
+}
+
+.floating-item.active:hover {
+  transform: none;
+}
+
+.floating-content h2 {
+  margin: 0 0 8px;
+  font-size: 1.3rem;
+}
+
+.floating-content p {
+  margin: 0 0 12px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.floating-content span {
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
