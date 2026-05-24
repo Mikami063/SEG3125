@@ -1,40 +1,52 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./FloatingPortfolio.css";
 
 const items = [
   {
-    id: "about",
-    label: "About",
-    content: "About me text here.",
+    id: "0",
+    label: "a service site - Coming soon",
+    content: "Coming soon",
     position: "top",
   },
   {
-    id: "projects",
-    label: "Projects",
-    content: "Projects content here.",
+    id: "1",
+    label: "un jeu de mémoire - Coming soon",
+    content: "Coming soon",
     position: "right",
   },
   {
     id: "skills",
-    label: "Skills",
-    content: "Skills content here.",
+    label: "an e-commerce site - Coming soon",
+    content: "Coming soon",
     position: "bottom",
   },
   {
     id: "contact",
-    label: "Contact",
-    content: "Contact content here.",
+    label: "an analytics site - Coming soon",
+    content: "Coming soon",
     position: "left",
   },
 ];
 
+const createOpenItemsState = (isOpen) =>
+  items.reduce(
+    (state, item) => ({
+      ...state,
+      [item.id]: isOpen,
+    }),
+    {}
+  );
+
 function FloatingPortfolio() {
-  const [openItems, setOpenItems] = useState({
-    about: false,
-    projects: false,
-    skills: false,
-    contact: false,
-  });
+  const [openItems, setOpenItems] = useState(() => createOpenItemsState(true));
+
+  useEffect(() => {
+    const foldTimer = setTimeout(() => {
+      setOpenItems(createOpenItemsState(false));
+    }, 1000);
+
+    return () => clearTimeout(foldTimer);
+  }, []);
 
   const toggleItem = (id) => {
     setOpenItems((prev) => ({
@@ -46,8 +58,11 @@ function FloatingPortfolio() {
   return (
     <div className="portfolio-scene">
       <div className="center-card">
-        <h1>My Portfolio</h1>
-        <p>Main center content.</p>
+        <h2>Qingyun's Portfolio</h2>
+        <hr/>
+        <p>I'm studying Computer Engineering at University of Ottawa. I have a passion for software development and enjoy working on various projects.</p>
+        <br/>
+        <p>I'm currently taking a UI course to improve my design skills and principles.</p>
       </div>
 
       {items.map((item) => {
