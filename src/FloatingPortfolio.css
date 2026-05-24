@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  background: #f4f4f5;
+  background: transparent;
   overflow: hidden;
 }
 
@@ -22,6 +22,10 @@
 .floating-item {
   --offset-transform: translate(0, 0);
   position: absolute;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 180px;
   height: 72px;
   border-radius: 20px;
@@ -33,7 +37,14 @@
   line-height: 1.2;
   cursor: pointer;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
-  transition: all 0.35s ease;
+  transition:
+    width 0.35s ease,
+    min-height 0.35s ease,
+    padding 0.35s ease,
+    border-radius 0.35s ease,
+    background-color 0.35s ease,
+    box-shadow 0.35s ease,
+    transform 0.35s ease;
   transform: var(--offset-transform);
   z-index: 3;
 }
@@ -59,15 +70,54 @@
 }
 
 .floating-item.active {
-  width: 260px;
-  height: 180px;
-  border-radius: 24px;
-  padding: 20px;
+  width: 345px;
+  height: auto;
+  min-height: 280px;
+  border-radius: 4px;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  box-shadow: none;
   text-align: left;
+  align-items: stretch;
+}
+
+.floating-item.active.top {
+  --offset-transform: translateY(-160px);
+}
+
+.floating-item.active.right {
+  --offset-transform: translateX(240px);
+}
+
+.floating-item.active.bottom {
+  --offset-transform: translateY(160px);
+}
+
+.floating-item.active.left {
+  --offset-transform: translateX(-240px);
 }
 
 .floating-item.active:hover {
   transform: var(--offset-transform);
+}
+
+.floating-item.active > * {
+  max-height: calc(100vh - 32px);
+  overflow: auto;
+  animation: card-open 0.28s ease both;
+}
+
+@keyframes card-open {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .floating-content h2 {
