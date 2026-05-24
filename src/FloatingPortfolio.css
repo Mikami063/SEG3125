@@ -22,13 +22,15 @@
 .floating-item {
   --offset-transform: translate(0, 0);
   position: absolute;
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
+  width: 180px;
+  height: 72px;
+  border-radius: 20px;
+  padding: 12px 18px;
   border: none;
   background: #1976d2;
   color: white;
   font-weight: 700;
+  line-height: 1.2;
   cursor: pointer;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
   transition: all 0.35s ease;

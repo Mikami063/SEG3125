@@ -39,6 +39,7 @@ const createOpenItemsState = (isOpen) =>
 
 function FloatingPortfolio() {
   const [openItems, setOpenItems] = useState(() => createOpenItemsState(true));
+  const [hoveredItem, setHoveredItem] = useState(null);
 
   useEffect(() => {
     const foldTimer = setTimeout(() => {
@@ -47,13 +48,6 @@ function FloatingPortfolio() {
 
     return () => clearTimeout(foldTimer);
   }, []);
-
-  const toggleItem = (id) => {
-    setOpenItems((prev) => ({
-      ...prev,
-      [id]: !prev[id],
-    }));
-  };
 
   return (
     <div className="portfolio-scene">
@@ -66,15 +60,19 @@ function FloatingPortfolio() {
       </div>
 
       {items.map((item) => {
-        const isOpen = openItems[item.id];
+        const isOpen = openItems[item.id] || hoveredItem === item.id;
 
         return (
           <button
+            type="button"
             key={item.id}
             className={`floating-item ${item.position} ${
               isOpen ? "active" : ""
             }`}
-            onClick={() => toggleItem(item.id)}
+            onMouseEnter={() => setHoveredItem(item.id)}
+            onMouseLeave={() => setHoveredItem(null)}
+            onFocus={() => setHoveredItem(item.id)}
+            onBlur={() => setHoveredItem(null)}
           >
             {isOpen ? (
               <div className="floating-content">
