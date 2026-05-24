@@ -80,7 +80,14 @@ function FloatingPortfolio() {
                 content={item.content}
               />
             ) : (
-              item.label
+              <div className="compact-card">
+                <img
+                  className="compact-card-image"
+                  src={item.image}
+                  alt={item.label}
+                />
+                <div className="compact-card-title">{item.title}</div>
+              </div>
             )}
           </div>
         );
