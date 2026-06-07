@@ -1,17 +1,21 @@
-import heroImg from "./assets/moinzon-mountains-1412683.svg";
+// backgroud image added via codex
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from "./Home";
+import ServiceSitePage from "./pages/ServiceSite/ServiceSitePage";
 import "./App.css";
-import FloatingPortfolio from "./FloatingPortfolio";
+
 
 function App() {
   return (
-    <div
-      className="app-background"
-      style={{
-        backgroundImage: `url(${heroImg})`,
-      }}
-    >
-      <FloatingPortfolio />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/service" element={<ServiceSitePage />} />
+        <Route path="/game" element={<ServiceSitePage />} />
+        <Route path="/ecommerce" element={<ServiceSitePage />} />
+        <Route path="/analytics" element={<ServiceSitePage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
