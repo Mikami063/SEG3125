@@ -11,10 +11,11 @@ const items = [
   {
     id: "0",
     image: repairImage,
-    title: "Electronic Repair Service - Coming soon",
-    label: "Electronic Repair Service - Coming soon",
-    content: "Coming soon",
+    title: "Electronic Repair Service - Restore4You",
+    label: "Electronic Repair Service - Restore4You",
+    content: "Restore4You",
     position: "top",
+    to: "/services",
   },
   {
     id: "1",
@@ -23,6 +24,7 @@ const items = [
     label: "Shuffle Cards - Coming soon",
     content: "Coming soon",
     position: "right",
+    to: "/game",
   },
   {
     id: "2",
@@ -31,6 +33,7 @@ const items = [
     label: "E-commerce - Coming soon",
     content: "Coming soon",
     position: "bottom",
+    to: "/ecommerce",
   },
   {
     id: "3",
@@ -39,6 +42,7 @@ const items = [
     label: "Game analytics - Coming soon",
     content: "Coming soon",
     position: "left",
+    to: "/analytics",
   },
 ];
 
@@ -78,6 +82,7 @@ function FloatingPortfolio() {
                 label={item.label}
                 title={item.title}
                 content={item.content}
+                to={item.to}
               />
             ) : (
               <div className="compact-card">
