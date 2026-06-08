@@ -67,7 +67,9 @@ function ServiceSitePage() {
               <p className="mb-0">
                 Choose your device, describe the issue, and schedule a service
                 time that works for you.
-                Or call us at (613) XXX-XXXX to speak with a repair specialist.
+                </p>
+              <p className="mb-0">
+                Or call us at <strong>(613) XXX-XXXX</strong> to speak with a repair specialist.
               </p>
             </div>
           </section>
