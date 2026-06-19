@@ -1,39 +1,21 @@
-// Modified from Material UI sample code
-// https://mui.com/material-ui/react-card/
-
 import { Link } from 'react-router-dom';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import CardActionArea from '@mui/material/CardActionArea';
-import CardActions from '@mui/material/CardActions';
 
 export default function MultiActionAreaCard({image, label, title, content, to}) {
   return (
-    <Card sx={{ width: 345 }}>
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          height="140"
-          image={image}
-          alt={label}
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {title}
-          </Typography>
-          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-            {content}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary" component={Link} to={to}>
+    <div className="card" style={{ width: 345 }}>
+      <img
+        className="card-img-top"
+        src={image}
+        alt={label}
+        style={{ height: 140, objectFit: "cover" }}
+      />
+      <div className="card-body">
+        <h3 className="h5 card-title">{title}</h3>
+        <p className="card-text text-secondary">{content}</p>
+        <Link className="btn btn-primary btn-sm" to={to}>
           Open
-        </Button>
-      </CardActions>
-    </Card>
+        </Link>
+      </div>
+    </div>
   );
 }
