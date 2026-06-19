@@ -5,6 +5,7 @@ import ServiceSitePage from "./pages/ServiceSite/ServiceSitePage";
 import ReservatePage from "./pages/ServiceSite/ReservatePage";
 import ReferancePage from "./pages/ServiceSite/ReferancePage";
 import AboutUs from "./pages/ServiceSite/AboutUs";
+import GameSitePage from "./pages/GameSite/GameSitePage";
 import "./App.css";
 
 
@@ -19,7 +20,7 @@ function App() {
         <Route path="/services/reference" element={<ReferancePage />} />
         <Route path="/services/about" element={<AboutUs />} />
 
-        <Route path="/game" element={<ServiceSitePage />} />
+        <Route path="/game" element={<GameSitePage />} />
 
         <Route path="/ecommerce" element={<ServiceSitePage />} />
 

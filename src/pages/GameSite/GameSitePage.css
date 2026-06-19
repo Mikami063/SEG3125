@@ -1,0 +1,67 @@
+.game-shell {
+  background:
+    radial-gradient(circle at top right, rgba(25, 135, 84, 0.22), transparent 32rem),
+    #07120d;
+  color: #d9fbe8;
+  font-family: var(--mono);
+}
+
+.game-shell .navbar,
+.terminal-card,
+.terminal-stat {
+  background: rgba(5, 15, 11, 0.92);
+  border-color: rgba(25, 135, 84, 0.45) !important;
+}
+
+.terminal-card {
+  color: #d9fbe8;
+  box-shadow: 0 0 0 1px rgba(25, 135, 84, 0.16), 0 1rem 3rem rgba(0, 0, 0, 0.28);
+}
+
+.terminal-card .card-header {
+  background: rgba(25, 135, 84, 0.12);
+  border-color: rgba(25, 135, 84, 0.45);
+}
+
+.game-shell .form-select,
+.selected-row {
+  background-color: #0d1b14;
+  border-color: rgba(25, 135, 84, 0.55);
+  color: #d9fbe8;
+}
+
+.game-shell .form-select:disabled {
+  color: rgba(217, 251, 232, 0.58);
+}
+
+.terminal-empty,
+.terminal-stat {
+  background: rgba(25, 135, 84, 0.1);
+  border: 1px solid rgba(25, 135, 84, 0.38);
+}
+
+.terminal-stat {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.terminal-stat strong {
+  color: #f3fff8;
+}
+
+.recipe-list .list-group-item::marker {
+  color: #75d69c;
+}
+
+.game-shell h1,
+.game-shell h2,
+.game-shell .display-6 {
+  color: #f3fff8;
+}
+
+.game-shell .btn-outline-success {
+  --bs-btn-color: #9ef0bb;
+  --bs-btn-border-color: rgba(25, 135, 84, 0.8);
+  --bs-btn-hover-bg: rgba(25, 135, 84, 0.25);
+  --bs-btn-hover-border-color: #75d69c;
+}
