@@ -1,3 +1,9 @@
+@font-face {
+  font-family: "Noto Color Emoji Local";
+  src: url("../../assets/Noto_Color_Emoji/NotoColorEmoji-Regular.ttf") format("truetype");
+  font-display: swap;
+}
+
 .game-shell {
   background:
     radial-gradient(circle at top right, rgba(25, 135, 84, 0.22), transparent 32rem),
@@ -47,6 +53,18 @@
 
 .terminal-stat strong {
   color: #f3fff8;
+}
+
+.ingredient-label {
+  align-items: center;
+  display: inline-flex;
+  gap: 0.45rem;
+}
+
+.ingredient-emoji {
+  font-family: "Noto Color Emoji Local", "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
+  font-size: 1.1em;
+  line-height: 1;
 }
 
 .recipe-list .list-group-item::marker {

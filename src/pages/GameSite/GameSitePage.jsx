@@ -14,16 +14,16 @@ const themes = {
     command: "brew --memory --arcane",
     recipeNoun: "Potion",
     items: [
-      "Mooncap",
-      "Dragon Scale",
-      "Silverthorn",
-      "Phoenix Ash",
-      "Glowberry",
-      "Frost Lily",
-      "Witch Salt",
-      "Starlight Dew",
-      "Crystal Moss",
-      "Ember Root",
+      { emoji: "🍄", name: "Mooncap" },
+      { emoji: "🐉", name: "Dragon Scale" },
+      { emoji: "🌿", name: "Silverthorn" },
+      { emoji: "🔥", name: "Phoenix Ash" },
+      { emoji: "🫐", name: "Glowberry" },
+      { emoji: "❄️", name: "Frost Lily" },
+      { emoji: "🧂", name: "Witch Salt" },
+      { emoji: "💧", name: "Starlight Dew" },
+      { emoji: "💎", name: "Crystal Moss" },
+      { emoji: "🌶️", name: "Ember Root" },
     ],
   },
   lab: {
@@ -31,16 +31,16 @@ const themes = {
     command: "run --sequence --compound",
     recipeNoun: "Formula",
     items: [
-      "Copper Sulfate",
-      "Sodium Drop",
-      "Neon Gel",
-      "Iodine Flask",
-      "Zinc Powder",
-      "Litmus Strip",
-      "Carbon Chip",
-      "Helium Cell",
-      "Quartz Lens",
-      "Acid Buffer",
+      { emoji: "🧪", name: "Copper Sulfate" },
+      { emoji: "💧", name: "Sodium Drop" },
+      { emoji: "💡", name: "Neon Gel" },
+      { emoji: "🧫", name: "Iodine Flask" },
+      { emoji: "⚙️", name: "Zinc Powder" },
+      { emoji: "📏", name: "Litmus Strip" },
+      { emoji: "⬛", name: "Carbon Chip" },
+      { emoji: "🎈", name: "Helium Cell" },
+      { emoji: "🔍", name: "Quartz Lens" },
+      { emoji: "⚗️", name: "Acid Buffer" },
     ],
   },
   cooking: {
@@ -48,16 +48,16 @@ const themes = {
     command: "cook --recall --timed",
     recipeNoun: "Recipe",
     items: [
-      "Basil Leaf",
-      "Honey Spoon",
-      "Cocoa Dust",
-      "Lemon Peel",
-      "Sea Salt",
-      "Chili Oil",
-      "Vanilla Pod",
-      "Rice Flour",
-      "Mint Sprig",
-      "Berry Jam",
+      { emoji: "🌿", name: "Basil Leaf" },
+      { emoji: "🍯", name: "Honey Spoon" },
+      { emoji: "🍫", name: "Cocoa Dust" },
+      { emoji: "🍋", name: "Lemon Peel" },
+      { emoji: "🧂", name: "Sea Salt" },
+      { emoji: "🌶️", name: "Chili Oil" },
+      { emoji: "🍦", name: "Vanilla Pod" },
+      { emoji: "🍚", name: "Rice Flour" },
+      { emoji: "🌱", name: "Mint Sprig" },
+      { emoji: "🍓", name: "Berry Jam" },
     ],
   },
 };
@@ -80,8 +80,19 @@ function buildRound(levelKey, themeKey, roundNumber) {
     id: `${themeKey}-${levelKey}-${roundNumber}`,
     number: roundNumber + 1,
     recipe: orderedItems.slice(0, level.count),
-    pool: [...orderedItems].sort((a, b) => a.localeCompare(b)),
+    pool: [...orderedItems].sort((a, b) => a.name.localeCompare(b.name)),
   };
+}
+
+function IngredientLabel({ item }) {
+  return (
+    <span className="ingredient-label">
+      <span className="ingredient-emoji" aria-hidden="true">
+        {item.emoji}
+      </span>
+      <span>{item.name}</span>
+    </span>
+  );
 }
 
 function GameSitePage() {
@@ -147,8 +158,8 @@ function GameSitePage() {
     }
 
     setSelected((current) => {
-      if (current.includes(item)) {
-        return current.filter((value) => value !== item);
+      if (current.some((value) => value.name === item.name)) {
+        return current.filter((value) => value.name !== item.name);
       }
 
       if (current.length >= round.recipe.length) {
@@ -179,14 +190,15 @@ function GameSitePage() {
 
     const correct =
       selected.length === round.recipe.length &&
-      selected.every((item, index) => item === round.recipe[index]);
+      selected.every((item, index) => item.name === round.recipe[index].name);
 
     setFeedback({
       correct,
       title: correct ? "MATCH CONFIRMED" : "SEQUENCE MISMATCH",
       detail: correct
         ? `${theme.recipeNoun} memory accepted.`
-        : `Correct order: ${round.recipe.join(" > ")}`,
+        : "Correct order:",
+      correctOrder: correct ? null : round.recipe,
     });
 
     if (correct) {
@@ -350,9 +362,9 @@ function GameSitePage() {
                       {round.recipe.map((item) => (
                         <li
                           className="list-group-item bg-transparent text-light border-success-subtle"
-                          key={item}
+                          key={item.name}
                         >
-                          {item}
+                          <IngredientLabel item={item} />
                         </li>
                       ))}
                     </ol>
@@ -376,17 +388,17 @@ function GameSitePage() {
                         <h2 className="h5">Ingredient Pool</h2>
                         <div className="d-flex flex-wrap gap-2">
                           {round.pool.map((item) => {
-                            const active = selected.includes(item);
+                            const active = selected.some((value) => value.name === item.name);
                             return (
                               <button
                                 className={`btn ${
                                   active ? "btn-success" : "btn-outline-success"
                                 }`}
                                 type="button"
-                                key={item}
+                                key={item.name}
                                 onClick={() => toggleIngredient(item)}
                               >
-                                {item}
+                                <IngredientLabel item={item} />
                               </button>
                             );
                           })}
@@ -404,14 +416,14 @@ function GameSitePage() {
                             {selected.map((item, index) => (
                               <li
                                 className="list-group-item selected-row d-flex justify-content-between align-items-center gap-2"
-                                key={item}
+                                key={item.name}
                               >
-                                <span>{item}</span>
+                                <IngredientLabel item={item} />
                                 <span className="btn-group btn-group-sm" role="group">
                                   <button
                                     className="btn btn-outline-light"
                                     type="button"
-                                    aria-label={`Move ${item} earlier`}
+                                    aria-label={`Move ${item.name} earlier`}
                                     onClick={() => moveSelected(index, -1)}
                                   >
                                     up
@@ -419,7 +431,7 @@ function GameSitePage() {
                                   <button
                                     className="btn btn-outline-light"
                                     type="button"
-                                    aria-label={`Move ${item} later`}
+                                    aria-label={`Move ${item.name} later`}
                                     onClick={() => moveSelected(index, 1)}
                                   >
                                     down
@@ -450,6 +462,15 @@ function GameSitePage() {
                       >
                         <strong>{feedback.title}</strong>
                         <p className="mb-0">{feedback.detail}</p>
+                        {feedback.correctOrder && (
+                          <div className="d-flex flex-wrap gap-2 mt-2">
+                            {feedback.correctOrder.map((item) => (
+                              <span className="badge text-bg-light" key={item.name}>
+                                <IngredientLabel item={item} />
+                              </span>
+                            ))}
+                          </div>
+                        )}
                         <button
                           className="btn btn-dark mt-3 font-monospace"
                           type="button"
