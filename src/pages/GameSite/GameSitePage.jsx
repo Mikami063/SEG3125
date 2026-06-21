@@ -119,6 +119,7 @@ function GameSitePage() {
     ? `${Math.min(roundNumber + 1, maxRounds)} / ${maxRounds}`
     : `Practice ${roundNumber + 1}`;
   const isCompleteSelection = selected.length === round.recipe.length;
+  const hasWon = Boolean(maxRounds && score > maxRounds / 2);
 
   useEffect(() => {
     if (phase !== "memorize") {
@@ -487,9 +488,16 @@ function GameSitePage() {
 
                 {isFinished && (
                   <div className="terminal-empty text-center py-5">
-                    <p className="display-6 mb-3">Run Complete</p>
-                    <p className="lead mb-4">
+                    <p className="display-6 mb-3">
+                      {hasWon ? "You Win" : "You Lose"}
+                    </p>
+                    <p className="lead mb-2">
                       Final score: {score} / {maxRounds}
+                    </p>
+                    <p className="mb-4">
+                      {hasWon
+                        ? "More than half of the potions were recalled correctly."
+                        : "More than half of the potions must be correct to win."}
                     </p>
                     <button
                       className="btn btn-success font-monospace"

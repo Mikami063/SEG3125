@@ -20,9 +20,9 @@ const items = [
   {
     id: "1",
     image: cardsImage,
-    title: "Shuffle Cards - Coming soon",
-    label: "Shuffle Cards - Coming soon",
-    content: "Coming soon",
+    title: "Potion Recall",
+    label: "Potion Recall",
+    content: "Memory game",
     position: "right",
     to: "/game",
   },
