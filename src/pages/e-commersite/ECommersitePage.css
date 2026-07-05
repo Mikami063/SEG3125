@@ -25,6 +25,19 @@
   font: inherit;
 }
 
+.shop-icon {
+  display: inline-block;
+  flex: 0 0 auto;
+  fill: none;
+  height: 1.05em;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+  vertical-align: -0.15em;
+  width: 1.05em;
+}
+
 .shop-nav {
   align-items: center;
   background: rgba(255, 255, 255, 0.94);
@@ -91,7 +104,10 @@
 }
 
 .shop-nav nav button {
+  align-items: center;
   border-radius: 8px;
+  display: inline-flex;
+  gap: 0.4rem;
   padding: 0.55rem 0.8rem;
 }
 
@@ -230,6 +246,7 @@
   border-radius: 999px;
   color: #fff;
   display: inline-flex;
+  gap: 0.4rem;
   padding: 0.45rem 0.75rem;
   width: fit-content;
 }
@@ -241,12 +258,15 @@
 }
 
 .flyer-highlights span {
+  align-items: center;
   background: rgba(255, 255, 255, 0.82);
   border: 1px solid var(--shop-line);
   border-radius: 999px;
   color: var(--shop-action-dark);
+  display: inline-flex;
   font-size: 0.88rem;
   font-weight: 800;
+  gap: 0.4rem;
   padding: 0.45rem 0.7rem;
 }
 
@@ -360,10 +380,14 @@
 
 .primary-action,
 .secondary-action {
+  align-items: center;
   border-radius: 8px;
   border: 1px solid transparent;
   cursor: pointer;
+  display: inline-flex;
   font-weight: 800;
+  gap: 0.45rem;
+  justify-content: center;
   min-height: 2.75rem;
   padding: 0.65rem 1rem;
 }
@@ -514,6 +538,14 @@
 }
 
 .filter-header h2,
+.label-with-icon,
+.rating-pill {
+  align-items: center;
+  display: inline-flex;
+  gap: 0.4rem;
+}
+
+.filter-header h2,
 .results-toolbar h1,
 .checkout-form h2,
 .summary-card h2,
@@ -621,9 +653,12 @@
 }
 
 .text-button {
+  align-items: center;
   border-radius: 8px;
   color: var(--shop-action-dark);
+  display: inline-flex;
   font-weight: 800;
+  gap: 0.4rem;
   padding: 0.5rem 0.65rem;
   width: fit-content;
 }
@@ -668,9 +703,12 @@
 }
 
 .quantity-controls button {
+  align-items: center;
   background: #fff;
   border: 0;
   cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
   min-height: 2.25rem;
   width: 2.25rem;
 }
@@ -792,6 +830,11 @@
   font-size: 2rem;
   height: 4rem;
   width: 4rem;
+}
+
+.success-icon .shop-icon {
+  height: 1.4em;
+  width: 1.4em;
 }
 
 .survey-layout {

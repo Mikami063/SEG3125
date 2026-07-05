@@ -360,11 +360,12 @@ function ECommersitePage() {
           </span>
         </button>
         <nav aria-label="Main navigation">
-          <button onClick={() => navigate("home")}>Home</button>
-          <button onClick={() => navigate("listing")}>Shop</button>
-          <button onClick={() => navigate("survey")}>Survey</button>
+          <button onClick={() => navigate("home")}><Icon name="home" />Home</button>
+          <button onClick={() => navigate("listing")}><Icon name="bag" />Shop</button>
+          <button onClick={() => navigate("survey")}><Icon name="message" />Survey</button>
         </nav>
         <button className="cart-button" onClick={() => navigate("cart")} aria-label={`Shopping cart with ${cartCount} items`}>
+          <Icon name="cart" />
           <span aria-hidden="true">Cart</span>
           <strong>{cartCount}</strong>
         </button>
@@ -377,20 +378,20 @@ function ECommersitePage() {
           <>
             <section className="shop-hero">
               <div className="hero-copy">
-                <span className="promo-pill">Weekend Drop · 20% off today</span>
+                <span className="promo-pill"><Icon name="tag" />Weekend Drop · 20% off today</span>
                 <h1>Gear up for less.</h1>
                 <p>
                   Backpacks, hoodies, bottles, and desk essentials picked for busy
                   school days, work sessions, and weekend plans.
                 </p>
                 <div className="flyer-highlights" aria-label="Current shopping offers">
-                  <span>20% off select picks</span>
-                  <span>Free shipping over $75</span>
-                  <span>30 day returns</span>
+                  <span><Icon name="tag" />20% off select picks</span>
+                  <span><Icon name="truck" />Free shipping over $75</span>
+                  <span><Icon name="rotate" />30 day returns</span>
                 </div>
                 <div className="hero-actions">
-                  <button className="primary-action" onClick={shopWeekendSale}>Shop the Sale</button>
-                  <button className="secondary-action" onClick={() => navigate("survey")}>Give Feedback</button>
+                  <button className="primary-action" onClick={shopWeekendSale}><Icon name="bag" />Shop the Sale</button>
+                  <button className="secondary-action" onClick={() => navigate("survey")}><Icon name="message" />Give Feedback</button>
                 </div>
               </div>
               <div className="flyer-panel">
@@ -433,11 +434,11 @@ function ECommersitePage() {
           <section className="shop-section listing-layout">
             <aside className="filter-panel" aria-label="Product filters">
               <div className="filter-header">
-                <h2>Filters</h2>
+                <h2><Icon name="filter" />Filters</h2>
                 <button onClick={clearFilters}>Clear all</button>
               </div>
               <label className="field-label">
-                Search
+                <span className="label-with-icon"><Icon name="search" />Search</span>
                 <input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search products" />
               </label>
               <label className="field-label">
@@ -509,7 +510,7 @@ function ECommersitePage() {
                 <div className="empty-state">
                   <h2>No products match those filters.</h2>
                   <p>Try clearing a filter or increasing the price range.</p>
-                  <button className="primary-action" onClick={clearFilters}>Clear filters</button>
+                  <button className="primary-action" onClick={clearFilters}><Icon name="filter" />Clear filters</button>
                 </div>
               )}
             </div>
@@ -520,7 +521,7 @@ function ECommersitePage() {
           <section className="shop-section detail-layout">
             <img src={selectedProduct.image} alt={selectedProduct.name} />
             <div className="detail-copy">
-              <button className="text-button" onClick={() => navigate("listing")}>Back to products</button>
+              <button className="text-button" onClick={() => navigate("listing")}><Icon name="arrowLeft" />Back to products</button>
               <span className="eyebrow">{selectedProduct.brand}</span>
               <h1>{selectedProduct.name}</h1>
               <PriceDisplay product={selectedProduct} large />
@@ -534,7 +535,7 @@ function ECommersitePage() {
                 onClick={() => addToCart(selectedProduct)}
                 disabled={selectedProduct.availability === "Out of stock"}
               >
-                {selectedProduct.availability === "Out of stock" ? "Out of stock" : "Add to cart"}
+                {selectedProduct.availability === "Out of stock" ? "Out of stock" : <><Icon name="cart" />Add to cart</>}
               </button>
             </div>
           </section>
@@ -589,11 +590,11 @@ function ECommersitePage() {
               )}
               <div className="checkout-controls">
                 <button className="secondary-action" onClick={() => (checkoutStep === 0 ? navigate("cart") : setCheckoutStep(checkoutStep - 1))}>
-                  Back
+                  <Icon name="arrowLeft" />Back
                 </button>
                 <button className="text-button" onClick={() => navigate("cart")}>Cancel checkout</button>
                 <button className="primary-action" onClick={nextCheckoutStep}>
-                  {checkoutStep === 3 ? "Place Order" : "Next"}
+                  {checkoutStep === 3 ? <><Icon name="check" />Place Order</> : <>Next<Icon name="arrowRight" /></>}
                 </button>
               </div>
             </div>
@@ -602,11 +603,11 @@ function ECommersitePage() {
 
         {view === "confirmation" && (
           <section className="shop-section confirmation">
-            <span className="success-icon">✓</span>
+            <span className="success-icon"><Icon name="check" /></span>
             <h1>Order confirmed</h1>
             <p>Your FieldKit order has been placed. A confirmation message would be sent to {personal.email || "your email"}.</p>
-            <button className="primary-action" onClick={() => navigate("survey")}>Tell us about your experience</button>
-            <button className="secondary-action" onClick={() => navigate("listing")}>Continue shopping</button>
+            <button className="primary-action" onClick={() => navigate("survey")}><Icon name="message" />Tell us about your experience</button>
+            <button className="secondary-action" onClick={() => navigate("listing")}><Icon name="bag" />Continue shopping</button>
           </section>
         )}
 
@@ -645,7 +646,7 @@ function ECommersitePage() {
                 Comments
                 <textarea value={survey.comments} onChange={(event) => setSurvey({ ...survey, comments: event.target.value })} placeholder="Tell us what worked well or what felt confusing." />
               </label>
-              <button className="primary-action" type="submit">Submit survey</button>
+              <button className="primary-action" type="submit"><Icon name="send" />Submit survey</button>
               {surveySubmitted && <p className="success-message">Thanks. Your feedback has been recorded for this prototype.</p>}
             </form>
           </section>
@@ -675,12 +676,12 @@ function ProductCard({ product, onAdd, onOpen }) {
         <p>{product.description}</p>
         <div className="product-meta">
           <PriceDisplay product={product} />
-          <span>★ {product.rating}</span>
+          <span className="rating-pill"><Icon name="star" />{product.rating}</span>
         </div>
         <div className="product-actions">
-          <button className="secondary-action" onClick={onOpen}>Details</button>
+          <button className="secondary-action" onClick={onOpen}><Icon name="eye" />Details</button>
           <button className="primary-action" onClick={() => onAdd(product)} disabled={product.availability === "Out of stock"}>
-            {product.availability === "Out of stock" ? "Out" : "Add"}
+            {product.availability === "Out of stock" ? "Out" : <><Icon name="cart" />Add</>}
           </button>
         </div>
       </div>
@@ -716,7 +717,7 @@ function CartView({ cartDetails, totals, updateQuantity, onShop, onCheckout, com
         <div className="empty-state">
           <h2>Your cart is empty.</h2>
           <p>Browse products and add something useful for your day.</p>
-          <button className="primary-action" onClick={onShop}>Shop products</button>
+          <button className="primary-action" onClick={onShop}><Icon name="bag" />Shop products</button>
         </div>
       ) : (
         <div className="cart-grid">
@@ -730,18 +731,22 @@ function CartView({ cartDetails, totals, updateQuantity, onShop, onCheckout, com
                   <strong>{money(product.price)}</strong>
                 </div>
                 <div className="quantity-controls" aria-label={`Quantity for ${product.name}`}>
-                  <button onClick={() => updateQuantity(product.id, quantity - 1)}>-</button>
+                  <button onClick={() => updateQuantity(product.id, quantity - 1)} aria-label={`Decrease ${product.name} quantity`}>
+                    <Icon name="minus" />
+                  </button>
                   <span>{quantity}</span>
-                  <button onClick={() => updateQuantity(product.id, quantity + 1)}>+</button>
+                  <button onClick={() => updateQuantity(product.id, quantity + 1)} aria-label={`Increase ${product.name} quantity`}>
+                    <Icon name="plus" />
+                  </button>
                 </div>
-                <button className="text-button" onClick={() => updateQuantity(product.id, 0)}>Remove</button>
+                <button className="text-button" onClick={() => updateQuantity(product.id, 0)}><Icon name="trash" />Remove</button>
               </article>
             ))}
           </div>
           <div className="summary-card">
             <h2>Order summary</h2>
             <OrderSummary totals={totals} />
-            <button className="primary-action" onClick={onCheckout}>Checkout</button>
+            <button className="primary-action" onClick={onCheckout}><Icon name="creditCard" />Checkout</button>
           </div>
         </div>
       )}
@@ -780,6 +785,36 @@ function CheckoutForm({ title, children }) {
       <h2>{title}</h2>
       {children}
     </form>
+  );
+}
+
+function Icon({ name }) {
+  const paths = {
+    arrowLeft: <path d="M19 12H5m6 7-7-7 7-7" />,
+    arrowRight: <path d="M5 12h14m-6-7 7 7-7 7" />,
+    bag: <path d="M6 8h12l-1 12H7L6 8Zm3 0a3 3 0 0 1 6 0" />,
+    cart: <><path d="M5 6h16l-2 8H8L5 3H2" /><path d="M9 20a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm8 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" /></>,
+    check: <path d="m5 12 4 4L19 6" />,
+    creditCard: <><rect x="3" y="5" width="18" height="14" rx="2" /><path d="M3 10h18M7 15h4" /></>,
+    eye: <><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Z" /><circle cx="12" cy="12" r="3" /></>,
+    filter: <path d="M4 5h16l-6 7v5l-4 2v-7L4 5Z" />,
+    home: <path d="m3 11 9-8 9 8v9h-6v-6H9v6H3v-9Z" />,
+    message: <path d="M4 5h16v11H8l-4 4V5Z" />,
+    minus: <path d="M5 12h14" />,
+    plus: <path d="M12 5v14M5 12h14" />,
+    rotate: <path d="M4 12a8 8 0 0 1 13-6l2 2M20 12a8 8 0 0 1-13 6l-2-2M17 5v4h4M7 19v-4H3" />,
+    search: <><circle cx="11" cy="11" r="7" /><path d="m16 16 5 5" /></>,
+    send: <path d="m22 2-7 20-4-9-9-4 20-7Z" />,
+    star: <path d="m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6-5.4-2.8-5.4 2.8 1-6-4.4-4.3 6.1-.9L12 3Z" />,
+    tag: <path d="M20 12 12 20 4 12V4h8l8 8ZM8 8h.01" />,
+    trash: <><path d="M4 7h16M9 7V4h6v3M7 7l1 13h8l1-13" /><path d="M10 11v5M14 11v5" /></>,
+    truck: <><path d="M3 6h11v10H3V6Zm11 4h4l3 3v3h-7v-6Z" /><circle cx="7" cy="18" r="2" /><circle cx="17" cy="18" r="2" /></>,
+  };
+
+  return (
+    <svg className="shop-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      {paths[name]}
+    </svg>
   );
 }
 
