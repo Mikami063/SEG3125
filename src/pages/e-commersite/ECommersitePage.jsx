@@ -365,6 +365,7 @@ function ECommersitePage() {
         <nav aria-label="Main navigation">
           <button onClick={() => navigate("home")}><Icon name="home" />Home</button>
           <button onClick={() => navigate("listing")}><Icon name="bag" />Shop</button>
+          <button onClick={() => navigate("help")}><Icon name="help" />Help</button>
           <button onClick={() => navigate("survey")}><Icon name="message" />Survey</button>
         </nav>
         <button className="cart-button" onClick={() => navigate("cart")} aria-label={`Shopping cart with ${cartCount} items`}>
@@ -656,11 +657,43 @@ function ECommersitePage() {
             </form>
           </section>
         )}
+
+        {view === "help" && (
+          <section className="shop-section help-layout">
+            <div className="section-heading">
+              <span>Help Center</span>
+              <h1>Frequently Asked Questions</h1>
+            </div>
+            <div className="faq-list">
+              <article className="faq-item">
+                <h2>How long does shipping take?</h2>
+                <p>Standard shipping usually takes 3-5 business days.</p>
+              </article>
+              <article className="faq-item">
+                <h2>Can I return a product?</h2>
+                <p>Yes. Products can be returned within 30 days.</p>
+              </article>
+              <article className="faq-item">
+                <h2>What payment methods do you accept?</h2>
+                <p>Visa, Mastercard and PayPal.</p>
+              </article>
+              <article className="faq-item">
+                <h2>How can I contact customer support?</h2>
+                <p>
+                  <a href="mailto:support@demo.demo">support@demo.demo</a>
+                  <span> or </span>
+                  <a href="tel:+16130000000">+1 (613) XXX-XXXX</a>
+                </p>
+              </article>
+            </div>
+          </section>
+        )}
       </main>
 
       <footer className="shop-footer">
         <Link to="/">Portfolio home</Link>
-        <span>FAQ: Free shipping over $75, 30 day returns, contact hello@fieldkit.demo</span>
+        <button className="footer-help-link" onClick={() => navigate("help")}><Icon name="help" />Help Center</button>
+        <span>FAQ: Free shipping over $75, 30 day returns, contact support@demo.demo</span>
       </footer>
     </div>
   );
@@ -803,6 +836,7 @@ function Icon({ name }) {
     creditCard: <><rect x="3" y="5" width="18" height="14" rx="2" /><path d="M3 10h18M7 15h4" /></>,
     eye: <><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Z" /><circle cx="12" cy="12" r="3" /></>,
     filter: <path d="M4 5h16l-6 7v5l-4 2v-7L4 5Z" />,
+    help: <><circle cx="12" cy="12" r="9" /><path d="M9.5 9a2.6 2.6 0 0 1 5 1c0 2-2.5 2.1-2.5 4" /><path d="M12 17h.01" /></>,
     home: <path d="m3 11 9-8 9 8v9h-6v-6H9v6H3v-9Z" />,
     message: <path d="M4 5h16v11H8l-4 4V5Z" />,
     minus: <path d="M5 12h14" />,
