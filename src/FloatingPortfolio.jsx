@@ -29,9 +29,9 @@ const items = [
   {
     id: "2",
     image: ecommerceImage,
-    title: "E-commerce - Coming soon",
-    label: "E-commerce - Coming soon",
-    content: "Coming soon",
+    title: "FieldKit E-commerce",
+    label: "FieldKit E-commerce",
+    content: "Shopping prototype",
     position: "bottom",
     to: "/ecommerce",
   },
