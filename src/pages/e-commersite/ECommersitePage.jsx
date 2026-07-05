@@ -353,7 +353,10 @@ function ECommersitePage() {
     <div className="shop-shell">
       <header className="shop-nav">
         <button className="brand-button" onClick={() => navigate("home")} aria-label="Go to FieldKit home">
-          <span className="brand-mark">F</span>
+          <span className="brand-picture" aria-hidden="true">
+            <Icon name="bag" />
+            <span className="brand-ribbon">Field</span>
+          </span>
           <span>
             <strong>FieldKit</strong>
             <small>Smart everyday gear</small>
@@ -390,8 +393,10 @@ function ECommersitePage() {
                   <span><Icon name="rotate" />30 day returns</span>
                 </div>
                 <div className="hero-actions">
-                  <button className="primary-action" onClick={shopWeekendSale}><Icon name="bag" />Shop the Sale</button>
-                  <button className="secondary-action" onClick={() => navigate("survey")}><Icon name="message" />Give Feedback</button>
+                  <span className="cta-pointer">Sale starts here</span>
+                  <button className="primary-action hero-sale-button" onClick={shopWeekendSale}>
+                    <Icon name="bag" /><span className="button-label">Shop the Sale</span>
+                  </button>
                 </div>
               </div>
               <div className="flyer-panel">

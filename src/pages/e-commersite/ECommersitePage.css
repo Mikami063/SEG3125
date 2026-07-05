@@ -98,6 +98,41 @@
   width: 2.2rem;
 }
 
+.brand-picture {
+  align-items: center;
+  background:
+    linear-gradient(135deg, rgba(245, 184, 75, 0.92), rgba(15, 107, 85, 0.95));
+  border-radius: 8px;
+  color: #fff;
+  display: inline-flex;
+  height: 2.35rem;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  width: 2.35rem;
+}
+
+.brand-picture .shop-icon {
+  height: 1.35rem;
+  transform: translate(0.18rem, 0.18rem);
+  width: 1.35rem;
+}
+
+.brand-ribbon {
+  background: #fff;
+  color: var(--shop-action-dark);
+  font-size: 0.48rem;
+  font-weight: 900;
+  left: -0.45rem;
+  letter-spacing: 0;
+  line-height: 1;
+  padding: 0.12rem 0.6rem;
+  position: absolute;
+  text-transform: uppercase;
+  top: 0.42rem;
+  transform: rotate(-45deg);
+}
+
 .shop-nav nav {
   display: flex;
   gap: 0.35rem;
@@ -378,6 +413,30 @@
   margin-top: 1.25rem;
 }
 
+.hero-actions {
+  align-items: center;
+  gap: 0.9rem;
+  position: relative;
+}
+
+.cta-pointer {
+  align-items: center;
+  color: var(--shop-action-dark);
+  display: inline-flex;
+  font-size: 0.85rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.cta-pointer::after {
+  color: var(--shop-warm);
+  content: "→";
+  font-size: 1.8rem;
+  line-height: 1;
+  margin-left: 0.55rem;
+}
+
 .primary-action,
 .secondary-action {
   align-items: center;
@@ -399,6 +458,58 @@
 
 .primary-action:hover {
   background: var(--shop-action-dark);
+}
+
+.hero-sale-button {
+  background: var(--shop-action-dark);
+  box-shadow: 0 1rem 2rem rgba(15, 107, 85, 0.24);
+  font-family: system-ui, "Segoe UI", Arial, sans-serif;
+  font-size: 1.12rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  max-width: 28rem;
+  min-height: 3.35rem;
+  padding: 0.85rem 1.35rem;
+  text-transform: uppercase;
+  transform: translateY(0);
+  transition:
+    background-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+  width: min(100%, 28rem);
+  animation: sale-button-color-pulse 2.4s ease-in-out infinite;
+  outline: 3px solid rgba(245, 184, 75, 0.45);
+  outline-offset: 4px;
+}
+
+.hero-sale-button .button-label {
+  font-weight: 1000;
+}
+
+.hero-sale-button:hover {
+  background: var(--shop-action-dark);
+  box-shadow: 0 1.2rem 2.4rem rgba(15, 107, 85, 0.32);
+  transform: translateY(-2px);
+}
+
+.hero-sale-button .shop-icon {
+  height: 1.2em;
+  width: 1.2em;
+}
+
+@keyframes sale-button-color-pulse {
+  0%,
+  100% {
+    background: var(--shop-action-dark);
+    box-shadow: 0 1rem 2rem rgba(15, 107, 85, 0.24);
+  }
+
+  50% {
+    background: #20a77f;
+    box-shadow:
+      0 1.25rem 2.6rem rgba(15, 107, 85, 0.3),
+      0 0 0 0.45rem rgba(245, 184, 75, 0.2);
+  }
 }
 
 .primary-action:disabled {
@@ -914,6 +1025,15 @@
   .flyer-highlights span {
     font-size: 0.78rem;
     padding: 0.35rem 0.55rem;
+  }
+
+  .hero-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .cta-pointer::after {
+    content: "↓";
   }
 
   .shop-hero .flyer-panel img {
