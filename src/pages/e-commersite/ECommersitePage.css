@@ -142,10 +142,11 @@
   border: 1px solid var(--shop-line);
   border-radius: 8px;
   display: grid;
-  gap: 2rem;
-  grid-template-columns: minmax(0, 1fr) minmax(18rem, 28rem);
-  margin-top: clamp(1rem, 3vw, 2rem);
-  min-height: calc(100vh - 7rem);
+  gap: clamp(1rem, 3vw, 2rem);
+  grid-template-columns: minmax(0, 1fr) minmax(16rem, 25rem);
+  margin-top: clamp(0.75rem, 2vw, 1.25rem);
+  min-height: calc(100vh - 6rem);
+  padding: clamp(1.25rem, 3vw, 2.25rem);
   overflow: hidden;
   position: relative;
 }
@@ -162,14 +163,14 @@
 
 .hero-copy {
   display: grid;
-  gap: 1rem;
+  gap: clamp(0.7rem, 1.5vw, 1rem);
   max-width: 38rem;
 }
 
 .shop-hero h1 {
   color: var(--shop-ink);
   font-family: var(--shop-display);
-  font-size: clamp(2.7rem, 7vw, 6.4rem);
+  font-size: clamp(2.4rem, 6.4vw, 5.7rem);
   font-weight: 800;
   letter-spacing: 0;
   line-height: 0.9;
@@ -192,7 +193,7 @@
 }
 
 .shop-hero p {
-  font-size: 1.12rem;
+  font-size: clamp(0.98rem, 1.6vw, 1.12rem);
   max-width: 34rem;
 }
 
@@ -207,6 +208,10 @@
   box-shadow: 0 1.5rem 4rem rgba(23, 33, 29, 0.18);
   object-fit: cover;
   width: 100%;
+}
+
+.shop-hero .flyer-panel img {
+  max-height: min(68vh, 34rem);
 }
 
 .promo-pill,
@@ -253,26 +258,32 @@
   box-shadow: 0 1rem 2rem rgba(23, 33, 29, 0.2);
   color: #17211d;
   display: grid;
-  height: 7rem;
+  height: clamp(8rem, 18vw, 12rem);
   justify-items: center;
   line-height: 1;
-  padding: 1rem;
+  padding: clamp(0.7rem, 1.5vw, 1rem);
   position: absolute;
   right: -1rem;
   text-align: center;
   top: 1rem;
   transform: rotate(7deg);
-  width: 7rem;
+  width: clamp(8rem, 18vw, 12rem);
 }
 
 .deal-badge strong {
   font-family: var(--shop-display);
-  font-size: 1.25rem;
+  font-size: clamp(1.55rem, 3.2vw, 2.15rem);
   font-weight: 900;
 }
 
-.deal-badge span {
-  font-size: 0.75rem;
+.deal-badge .deal-percent {
+  color: #d7261e;
+  display: block;
+  font-size: clamp(2.3rem, 4.8vw, 3.2rem);
+}
+
+.deal-badge > span {
+  font-size: clamp(0.9rem, 2vw, 1.25rem);
   font-weight: 800;
   text-transform: uppercase;
 }
@@ -291,7 +302,7 @@
   right: 1rem;
 }
 
-.flyer-caption span,
+.flyer-caption .caption-label,
 .flyer-caption small {
   color: var(--shop-muted);
   font-size: 0.8rem;
@@ -323,6 +334,19 @@
   font-weight: 900;
   letter-spacing: 0;
   line-height: 1;
+}
+
+.regular-price {
+  color: var(--shop-ink);
+  font-family: var(--shop-display);
+  font-size: 1.35rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+.regular-price.large {
+  font-size: 2.45rem;
 }
 
 .hero-actions,
@@ -404,6 +428,8 @@
 .image-button {
   display: block;
   padding: 0;
+  position: relative;
+  width: 100%;
 }
 
 .product-card img {
@@ -411,6 +437,26 @@
   display: block;
   object-fit: cover;
   width: 100%;
+}
+
+.product-badge {
+  background: #fff;
+  border: 1px solid var(--shop-line);
+  border-radius: 999px;
+  color: var(--shop-muted);
+  font-size: 0.75rem;
+  font-weight: 900;
+  left: 0.65rem;
+  padding: 0.32rem 0.55rem;
+  position: absolute;
+  text-transform: uppercase;
+  top: 0.65rem;
+}
+
+.product-badge.sale {
+  background: #b83220;
+  border-color: #b83220;
+  color: #fff;
 }
 
 .product-card-copy {
@@ -806,7 +852,60 @@
   }
 
   .shop-hero {
-    min-height: auto;
+    min-height: calc(100vh - 10rem);
+    padding: 1rem;
+  }
+
+  .shop-hero h1 {
+    font-size: clamp(2.15rem, 12vw, 4rem);
+  }
+
+  .shop-hero p {
+    font-size: 0.98rem;
+  }
+
+  .flyer-highlights {
+    gap: 0.4rem;
+  }
+
+  .flyer-highlights span {
+    font-size: 0.78rem;
+    padding: 0.35rem 0.55rem;
+  }
+
+  .shop-hero .flyer-panel img {
+    aspect-ratio: 16 / 10;
+    max-height: 34vh;
+  }
+
+  .deal-badge {
+    height: clamp(6rem, 24vw, 8rem);
+    right: 0.5rem;
+    top: 0.5rem;
+    width: clamp(6rem, 24vw, 8rem);
+  }
+
+  .deal-badge strong {
+    font-size: clamp(1rem, 4.4vw, 1.4rem);
+  }
+
+  .deal-badge .deal-percent {
+    font-size: clamp(1.6rem, 7vw, 2.25rem);
+  }
+
+  .deal-badge > span {
+    font-size: clamp(0.65rem, 3vw, 0.85rem);
+  }
+
+  .flyer-caption {
+    bottom: 0.65rem;
+    left: 0.65rem;
+    padding: 0.65rem;
+    right: 0.65rem;
+  }
+
+  .flyer-caption small {
+    display: none;
   }
 
   .filter-panel,

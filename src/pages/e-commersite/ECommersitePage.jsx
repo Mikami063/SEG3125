@@ -9,6 +9,7 @@ const products = [
     brand: "Northline",
     category: "Bags",
     price: 64,
+    weekendSale: true,
     color: "Forest",
     size: "18L",
     material: "Recycled nylon",
@@ -24,6 +25,7 @@ const products = [
     brand: "AeroFit",
     category: "Shoes",
     price: 92,
+    weekendSale: true,
     color: "White",
     size: "M",
     material: "Knit mesh",
@@ -39,6 +41,7 @@ const products = [
     brand: "Everyday Co.",
     category: "Apparel",
     price: 58,
+    weekendSale: true,
     color: "Blue",
     size: "L",
     material: "Organic cotton",
@@ -54,6 +57,7 @@ const products = [
     brand: "BrewNest",
     category: "Kitchen",
     price: 48,
+    weekendSale: false,
     color: "Black",
     size: "One size",
     material: "Ceramic",
@@ -69,6 +73,7 @@ const products = [
     brand: "Lumina",
     category: "Home",
     price: 76,
+    weekendSale: false,
     color: "Silver",
     size: "One size",
     material: "Aluminum",
@@ -84,6 +89,7 @@ const products = [
     brand: "HydraHaus",
     category: "Accessories",
     price: 34,
+    weekendSale: true,
     color: "Green",
     size: "750ml",
     material: "Stainless steel",
@@ -99,6 +105,7 @@ const products = [
     brand: "Northline",
     category: "Bags",
     price: 29,
+    weekendSale: false,
     color: "Black",
     size: "Small",
     material: "Recycled polyester",
@@ -114,6 +121,7 @@ const products = [
     brand: "Everyday Co.",
     category: "Apparel",
     price: 24,
+    weekendSale: false,
     color: "Red",
     size: "One size",
     material: "Merino blend",
@@ -134,6 +142,7 @@ const initialFilters = {
   size: [],
   material: [],
   availability: [],
+  weekendSale: [],
   price: 120,
   rating: 0,
 };
@@ -144,6 +153,10 @@ function money(value) {
 
 function regularPrice(value) {
   return Math.round(value * 1.25);
+}
+
+function saleLabel(product) {
+  return product.weekendSale ? "Weekend Sale" : "Regular Price";
 }
 
 function ECommersitePage() {
@@ -195,6 +208,7 @@ function ECommersitePage() {
     filtersConfig.forEach((key) => {
       options[key] = [...new Set(products.map((product) => product[key]))];
     });
+    options.weekendSale = ["Weekend Sale", "Regular Price"];
     return options;
   }, []);
 
@@ -209,9 +223,12 @@ function ECommersitePage() {
       const matchesFacets = filtersConfig.every(
         (key) => filters[key].length === 0 || filters[key].includes(product[key])
       );
+      const matchesSale =
+        filters.weekendSale.length === 0 || filters.weekendSale.includes(saleLabel(product));
       return (
         matchesText &&
         matchesFacets &&
+        matchesSale &&
         product.price <= filters.price &&
         product.rating >= filters.rating
       );
@@ -274,6 +291,13 @@ function ECommersitePage() {
     setFilters(initialFilters);
     setSearch("");
     setSort("featured");
+  }
+
+  function shopWeekendSale() {
+    setFilters({ ...initialFilters, weekendSale: ["Weekend Sale"] });
+    setSearch("");
+    setSort("featured");
+    navigate("listing");
   }
 
   function validatePersonal() {
@@ -365,23 +389,20 @@ function ECommersitePage() {
                   <span>30 day returns</span>
                 </div>
                 <div className="hero-actions">
-                  <button className="primary-action" onClick={() => navigate("listing")}>Shop the Sale</button>
+                  <button className="primary-action" onClick={shopWeekendSale}>Shop the Sale</button>
                   <button className="secondary-action" onClick={() => navigate("survey")}>Give Feedback</button>
                 </div>
               </div>
               <div className="flyer-panel">
                 <img src={products[0].image} alt="TrailLite Daypack product" />
                 <div className="deal-badge" aria-label="Featured sale deal">
-                  <strong>Save 20%</strong>
+                  <strong>Save <span className="deal-percent">20%</span></strong>
                   <span>Today only</span>
                 </div>
                 <div className="flyer-caption">
-                  <span>Best seller</span>
+                  <span className="caption-label">Best seller</span>
                   <strong>TrailLite Daypack</strong>
-                  <div className="sale-price-row">
-                    <span className="was-price">{money(regularPrice(products[0].price))}</span>
-                    <span className="now-price">{money(products[0].price)}</span>
-                  </div>
+                  <PriceDisplay product={products[0]} />
                   <small>Now featured in the daily gear sale</small>
                 </div>
               </div>
@@ -438,9 +459,9 @@ function ECommersitePage() {
                   <option value="4.8">4.8 stars and up</option>
                 </select>
               </label>
-              {filtersConfig.map((key) => (
+              {["weekendSale", ...filtersConfig].map((key) => (
                 <fieldset key={key}>
-                  <legend>{key}</legend>
+                  <legend>{key === "weekendSale" ? "Sale type" : key}</legend>
                   {filterOptions[key].map((option) => (
                     <label key={option} className="check-row">
                       <input
@@ -502,10 +523,7 @@ function ECommersitePage() {
               <button className="text-button" onClick={() => navigate("listing")}>Back to products</button>
               <span className="eyebrow">{selectedProduct.brand}</span>
               <h1>{selectedProduct.name}</h1>
-              <div className="detail-price">
-                <span className="was-price">{money(regularPrice(selectedProduct.price))}</span>
-                <span className="now-price">{money(selectedProduct.price)}</span>
-              </div>
+              <PriceDisplay product={selectedProduct} large />
               <p>{selectedProduct.description}</p>
               <ul>
                 {selectedProduct.specs.map((spec) => <li key={spec}>{spec}</li>)}
@@ -647,16 +665,16 @@ function ProductCard({ product, onAdd, onOpen }) {
     <article className="product-card">
       <button className="image-button" onClick={onOpen} aria-label={`View ${product.name} details`}>
         <img src={product.image} alt={product.name} />
+        <span className={product.weekendSale ? "product-badge sale" : "product-badge"}>
+          {saleLabel(product)}
+        </span>
       </button>
       <div className="product-card-copy">
         <span>{product.brand}</span>
         <h3>{product.name}</h3>
         <p>{product.description}</p>
         <div className="product-meta">
-          <div className="sale-price-row">
-            <span className="was-price">{money(regularPrice(product.price))}</span>
-            <span className="now-price">{money(product.price)}</span>
-          </div>
+          <PriceDisplay product={product} />
           <span>★ {product.rating}</span>
         </div>
         <div className="product-actions">
@@ -667,6 +685,23 @@ function ProductCard({ product, onAdd, onOpen }) {
         </div>
       </div>
     </article>
+  );
+}
+
+function PriceDisplay({ product, large = false }) {
+  if (!product.weekendSale) {
+    return (
+      <div className={large ? "detail-price" : "sale-price-row"}>
+        <span className={large ? "regular-price large" : "regular-price"}>{money(product.price)}</span>
+      </div>
+    );
+  }
+
+  return (
+    <div className={large ? "detail-price" : "sale-price-row"}>
+      <span className="was-price">{money(regularPrice(product.price))}</span>
+      <span className="now-price">{money(product.price)}</span>
+    </div>
   );
 }
 
