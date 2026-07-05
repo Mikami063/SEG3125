@@ -142,6 +142,10 @@ function money(value) {
   return `$${value.toFixed(2)}`;
 }
 
+function regularPrice(value) {
+  return Math.round(value * 1.25);
+}
+
 function ECommersitePage() {
   const [view, setView] = useState("home");
   const [selectedProductId, setSelectedProductId] = useState(products[0].id);
@@ -348,19 +352,39 @@ function ECommersitePage() {
         {view === "home" && (
           <>
             <section className="shop-hero">
-              <div>
-                <span className="promo-pill">Limited Time: 20% off select daily gear</span>
-                <h1>FieldKit</h1>
+              <div className="hero-copy">
+                <span className="promo-pill">Weekend Drop · 20% off today</span>
+                <h1>Gear up for less.</h1>
                 <p>
-                  Simple, useful products for study, work, travel, and everyday routines.
-                  Free shipping on orders over $75.
+                  Backpacks, hoodies, bottles, and desk essentials picked for busy
+                  school days, work sessions, and weekend plans.
                 </p>
+                <div className="flyer-highlights" aria-label="Current shopping offers">
+                  <span>20% off select picks</span>
+                  <span>Free shipping over $75</span>
+                  <span>30 day returns</span>
+                </div>
                 <div className="hero-actions">
-                  <button className="primary-action" onClick={() => navigate("listing")}>Shop Now</button>
+                  <button className="primary-action" onClick={() => navigate("listing")}>Shop the Sale</button>
                   <button className="secondary-action" onClick={() => navigate("survey")}>Give Feedback</button>
                 </div>
               </div>
-              <img src={products[0].image} alt="TrailLite Daypack product" />
+              <div className="flyer-panel">
+                <img src={products[0].image} alt="TrailLite Daypack product" />
+                <div className="deal-badge" aria-label="Featured sale deal">
+                  <strong>Save 20%</strong>
+                  <span>Today only</span>
+                </div>
+                <div className="flyer-caption">
+                  <span>Best seller</span>
+                  <strong>TrailLite Daypack</strong>
+                  <div className="sale-price-row">
+                    <span className="was-price">{money(regularPrice(products[0].price))}</span>
+                    <span className="now-price">{money(products[0].price)}</span>
+                  </div>
+                  <small>Now featured in the daily gear sale</small>
+                </div>
+              </div>
             </section>
             <section className="shop-section">
               <div className="section-heading">
@@ -478,7 +502,10 @@ function ECommersitePage() {
               <button className="text-button" onClick={() => navigate("listing")}>Back to products</button>
               <span className="eyebrow">{selectedProduct.brand}</span>
               <h1>{selectedProduct.name}</h1>
-              <p className="detail-price">{money(selectedProduct.price)}</p>
+              <div className="detail-price">
+                <span className="was-price">{money(regularPrice(selectedProduct.price))}</span>
+                <span className="now-price">{money(selectedProduct.price)}</span>
+              </div>
               <p>{selectedProduct.description}</p>
               <ul>
                 {selectedProduct.specs.map((spec) => <li key={spec}>{spec}</li>)}
@@ -626,7 +653,10 @@ function ProductCard({ product, onAdd, onOpen }) {
         <h3>{product.name}</h3>
         <p>{product.description}</p>
         <div className="product-meta">
-          <strong>{money(product.price)}</strong>
+          <div className="sale-price-row">
+            <span className="was-price">{money(regularPrice(product.price))}</span>
+            <span className="now-price">{money(product.price)}</span>
+          </div>
           <span>★ {product.rating}</span>
         </div>
         <div className="product-actions">

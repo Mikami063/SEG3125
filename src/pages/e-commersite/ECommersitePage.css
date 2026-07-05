@@ -7,6 +7,7 @@
   --shop-action: #0f6b55;
   --shop-action-dark: #0a4e3e;
   --shop-warm: #f5b84b;
+  --shop-display: "Arial Black", Impact, Haettenschweiler, "Segoe UI Black", sans-serif;
   background: var(--shop-soft);
   color: var(--shop-ink);
   min-height: 100vh;
@@ -135,13 +136,46 @@
 
 .shop-hero {
   align-items: center;
+  background:
+    linear-gradient(135deg, rgba(15, 107, 85, 0.12), rgba(245, 184, 75, 0.16)),
+    #fff;
+  border: 1px solid var(--shop-line);
+  border-radius: 8px;
   display: grid;
   gap: 2rem;
   grid-template-columns: minmax(0, 1fr) minmax(18rem, 28rem);
-  min-height: calc(100vh - 4.25rem);
+  margin-top: clamp(1rem, 3vw, 2rem);
+  min-height: calc(100vh - 7rem);
+  overflow: hidden;
+  position: relative;
 }
 
-.shop-hero h1,
+.shop-hero::before {
+  background: var(--shop-warm);
+  content: "";
+  height: 0.55rem;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.hero-copy {
+  display: grid;
+  gap: 1rem;
+  max-width: 38rem;
+}
+
+.shop-hero h1 {
+  color: var(--shop-ink);
+  font-family: var(--shop-display);
+  font-size: clamp(2.7rem, 7vw, 6.4rem);
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 0.9;
+  margin: 0;
+}
+
 .shop-section h1 {
   color: var(--shop-ink);
   font-size: clamp(2.25rem, 6vw, 5rem);
@@ -157,7 +191,16 @@
   color: var(--shop-muted);
 }
 
-.shop-hero img,
+.shop-hero p {
+  font-size: 1.12rem;
+  max-width: 34rem;
+}
+
+.flyer-panel {
+  position: relative;
+}
+
+.shop-hero .flyer-panel img,
 .detail-layout > img {
   aspect-ratio: 4 / 5;
   border-radius: 8px;
@@ -174,6 +217,112 @@
   font-weight: 800;
   letter-spacing: 0;
   text-transform: uppercase;
+}
+
+.promo-pill {
+  align-items: center;
+  background: #17211d;
+  border-radius: 999px;
+  color: #fff;
+  display: inline-flex;
+  padding: 0.45rem 0.75rem;
+  width: fit-content;
+}
+
+.flyer-highlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.flyer-highlights span {
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid var(--shop-line);
+  border-radius: 999px;
+  color: var(--shop-action-dark);
+  font-size: 0.88rem;
+  font-weight: 800;
+  padding: 0.45rem 0.7rem;
+}
+
+.deal-badge {
+  align-items: center;
+  background: var(--shop-warm);
+  border: 4px solid #fff;
+  border-radius: 999px;
+  box-shadow: 0 1rem 2rem rgba(23, 33, 29, 0.2);
+  color: #17211d;
+  display: grid;
+  height: 7rem;
+  justify-items: center;
+  line-height: 1;
+  padding: 1rem;
+  position: absolute;
+  right: -1rem;
+  text-align: center;
+  top: 1rem;
+  transform: rotate(7deg);
+  width: 7rem;
+}
+
+.deal-badge strong {
+  font-family: var(--shop-display);
+  font-size: 1.25rem;
+  font-weight: 900;
+}
+
+.deal-badge span {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.flyer-caption {
+  background: #fff;
+  border: 1px solid var(--shop-line);
+  border-radius: 8px;
+  bottom: 1rem;
+  box-shadow: 0 1rem 2rem rgba(23, 33, 29, 0.14);
+  display: grid;
+  gap: 0.15rem;
+  left: 1rem;
+  padding: 0.85rem;
+  position: absolute;
+  right: 1rem;
+}
+
+.flyer-caption span,
+.flyer-caption small {
+  color: var(--shop-muted);
+  font-size: 0.8rem;
+}
+
+.flyer-caption strong {
+  color: var(--shop-ink);
+}
+
+.sale-price-row {
+  align-items: baseline;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.was-price {
+  color: var(--shop-muted);
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+}
+
+.now-price {
+  color: #b83220;
+  font-family: var(--shop-display);
+  font-size: 1.65rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1;
 }
 
 .hero-actions,
@@ -412,9 +561,17 @@
 }
 
 .detail-price {
-  color: var(--shop-action-dark) !important;
-  font-size: 1.8rem;
-  font-weight: 900;
+  align-items: baseline;
+  display: flex;
+  gap: 0.65rem;
+}
+
+.detail-price .was-price {
+  font-size: 1.15rem;
+}
+
+.detail-price .now-price {
+  font-size: 2.8rem;
 }
 
 .text-button {
