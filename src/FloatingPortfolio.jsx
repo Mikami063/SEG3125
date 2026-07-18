@@ -38,9 +38,9 @@ const items = [
   {
     id: "3",
     image: analyticsImage,
-    title: "Game analytics - Coming soon",
-    label: "Game analytics - Coming soon",
-    content: "Coming soon",
+    title: "Canadian Electricity Dashboard",
+    label: "Canadian Electricity Dashboard",
+    content: "Bilingual electricity data explorer",
     position: "left",
     to: "/analytics",
   },

@@ -5,6 +5,23 @@
   background-repeat: no-repeat;
 }
 
+.dashboard-loading {
+  min-height: 100svh;
+  display: grid;
+  place-content: center;
+  gap: 0.35rem;
+  background: #f3f8f7;
+  color: #18373d;
+  font-weight: 800;
+  text-align: center;
+}
+
+.dashboard-loading span {
+  color: #61777b;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
 .counter {
   font-size: 16px;
   padding: 5px 10px;

@@ -1,4 +1,5 @@
 // backgroud image added via codex
+import { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from "./Home";
 import ServiceSitePage from "./pages/ServiceSite/ServiceSitePage";
@@ -8,6 +9,8 @@ import AboutUs from "./pages/ServiceSite/AboutUs";
 import GameSitePage from "./pages/GameSite/GameSitePage";
 import ECommersitePage from "./pages/e-commersite/ECommersitePage";
 import "./App.css";
+
+const ElectricityDashboardPage = lazy(() => import("./pages/ElectricityDashboard/ElectricityDashboardPage"));
 
 
 function App() {
@@ -25,7 +28,7 @@ function App() {
 
         <Route path="/ecommerce" element={<ECommersitePage />} />
 
-        <Route path="/analytics" element={<ServiceSitePage />} />
+        <Route path="/analytics" element={<Suspense fallback={<div className="dashboard-loading" role="status">Loading electricity data…<br /><span>Chargement des données sur l’électricité…</span></div>}><ElectricityDashboardPage /></Suspense>} />
         
       </Routes>
     </BrowserRouter>
