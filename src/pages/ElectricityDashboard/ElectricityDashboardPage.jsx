@@ -49,6 +49,7 @@ export default function ElectricityDashboardPage() {
 
   const commonOptions = { responsive: true, maintainAspectRatio: false, animation: { duration: 350 }, plugins: { legend: { display: false }, tooltip: { callbacks: { label: (context) => `${context.dataset.label || t.values}: ${formatNumber(context.raw)} ${t.mwh}` } } }, scales: { y: { beginAtZero: true, ticks: { callback: (value) => formatNumber(value, true) }, grid: { color: "rgba(24,55,61,.09)" } }, x: { grid: { display: false } } } };
   const select = (label, value, setter, options) => <label><span>{label}</span><select value={value} onChange={(event) => setter(event.target.value)}>{options.map((option) => <option key={option} value={option}>{option.includes("-") && /^\d/.test(option) ? formatMonth(option) : option}</option>)}</select></label>;
+  const regionBadge = <span className="region-badge"><span aria-hidden="true">⌖</span>{geoLabel(geography)}</span>;
 
   return <main className="electric-shell" lang={language}>
     <header className="electric-header">
@@ -68,17 +69,19 @@ export default function ElectricityDashboardPage() {
         { label: t.largestSource, value: largest ? typeLabel(largest.source) : t.unavailable, detail: largest ? `${formatNumber(largest.value, true)} ${t.mwh}` : "", icon: "⚡" },
         { label: t.selectedGeography, value: geoLabel(geography), icon: "⌖" },
       ]} />
-      <ChartPanel title={t.monthlyTitle} text={t.monthlyText} note={crossesMethodChange ? t.methodology : null} className="wide-panel">
+      <section className="charts-layout" aria-label={t.chartSummary}>
+      <ChartPanel title={t.monthlyTitle} text={t.monthlyText} note={crossesMethodChange ? t.methodology : null} controls={regionBadge} className="wide-panel">
         {lineValues.some((value) => value != null) ? <div className="chart-box line-box"><Line data={{ labels: lineMonths.map((value) => formatMonth(value, true)), datasets: [{ label: typeLabel(type), data: lineValues, borderColor: colors[typeKeys[type]], backgroundColor: `${colors[typeKeys[type]]}20`, fill: true, tension: .25, pointRadius: lineMonths.length > 36 ? 0 : 2, spanGaps: false }] }} options={commonOptions} /></div> : <div className="empty-state">{t.noData}</div>}
       </ChartPanel>
       <div className="dashboard-grid">
         <ChartPanel title={t.comparisonTitle} text={t.comparisonText} note={t.missingNote} controls={select(t.month, month, setMonth, data.dates)}>
           {provinceValues.length ? <div className="chart-box bar-box"><Bar data={{ labels: provinceValues.map(({ geo }) => geoLabel(geo)), datasets: [{ label: typeLabel(type), data: provinceValues.map(({ value }) => value), backgroundColor: "#2f8890", borderRadius: 5 }] }} options={{ ...commonOptions, indexAxis: "y", scales: { x: { beginAtZero: true, ticks: { callback: (value) => formatNumber(value, true) }, grid: { color: "rgba(24,55,61,.09)" } }, y: { grid: { display: false } } } }} /></div> : <div className="empty-state">{t.noData}</div>}
         </ChartPanel>
-        <ChartPanel title={t.mixTitle} text={t.mixText} controls={select(t.month, month, setMonth, data.dates)}>
+        <ChartPanel title={t.mixTitle} text={t.mixText} controls={<div className="chart-control-stack">{regionBadge}{select(t.month, month, setMonth, data.dates)}</div>}>
           {sourceValues.length ? <><div className="chart-box donut-box"><Doughnut data={{ labels: sourceValues.map(({ source }) => typeLabel(source)), datasets: [{ data: sourceValues.map(({ value }) => value), backgroundColor: sourceValues.map(({ source }) => colors[typeKeys[source]]), borderColor: "#fff", borderWidth: 3 }] }} options={{ responsive: true, maintainAspectRatio: false, cutout: "66%", plugins: { legend: { position: "bottom", labels: { usePointStyle: true, boxWidth: 8, padding: 14 } }, tooltip: commonOptions.plugins.tooltip } }} /></div><p className="sr-only">{t.chartSummary}: {sourceValues.map(({ source, value }) => `${typeLabel(source)} ${formatNumber(value)} ${t.mwh}`).join(", ")}</p></> : <div className="empty-state">{t.noData}</div>}
         </ChartPanel>
       </div>
+      </section>
       <footer><p>{t.source}</p></footer>
     </div>
   </main>;
