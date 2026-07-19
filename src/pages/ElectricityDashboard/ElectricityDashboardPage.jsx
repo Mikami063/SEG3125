@@ -23,6 +23,7 @@ export default function ElectricityDashboardPage() {
   const [start, setStart] = useState(data.dates[Math.max(0, data.dates.length - 60)]);
   const [end, setEnd] = useState(data.dates.at(-1));
   const [month, setMonth] = useState(data.dates.at(-1));
+  const [monthWidth, setMonthWidth] = useState(18);
   const t = translations[language];
   const typeLabel = (value) => t[typeKeys[value]] || value;
   const geoLabel = (value) => language === "fr" ? geographyFr[value] || value : value;
@@ -70,8 +71,8 @@ export default function ElectricityDashboardPage() {
         { label: t.selectedGeography, value: geoLabel(geography), icon: "⌖" },
       ]} />
       <section className="charts-layout" aria-label={t.chartSummary}>
-      <ChartPanel title={t.monthlyTitle} text={t.monthlyText} note={crossesMethodChange ? t.methodology : null} controls={regionBadge} className="wide-panel">
-        {lineValues.some((value) => value != null) ? <div className="chart-box line-box"><Line data={{ labels: lineMonths.map((value) => formatMonth(value, true)), datasets: [{ label: typeLabel(type), data: lineValues, borderColor: colors[typeKeys[type]], backgroundColor: `${colors[typeKeys[type]]}20`, fill: true, tension: .25, pointRadius: lineMonths.length > 36 ? 0 : 2, spanGaps: false }] }} options={commonOptions} /></div> : <div className="empty-state">{t.noData}</div>}
+      <ChartPanel title={t.monthlyTitle} text={t.monthlyText} note={crossesMethodChange ? t.methodology : null} controls={<div className="chart-control-stack">{regionBadge}<label className="chart-size-control"><span>{language === "fr" ? "Taille de la période" : "Timeline size"}</span><input type="range" min="8" max="42" value={monthWidth} onChange={(event) => setMonthWidth(Number(event.target.value))} aria-label={language === "fr" ? "Ajuster l'espacement des mois" : "Adjust month spacing"} /><small><span>{language === "fr" ? "Compact" : "Compact"}</span><span>{language === "fr" ? "Détaillé" : "Detailed"}</span></small></label></div>} className="wide-panel">
+          {lineValues.some((value) => value != null) ? <div className="chart-box line-box" tabIndex="0" aria-label={language === "fr" ? "Graphique défilable horizontalement" : "Horizontally scrollable chart"}><div className="line-scroll-content" style={{ width: `${Math.max(520, lineMonths.length * monthWidth)}px` }}><Line data={{ labels: lineMonths.map((value) => formatMonth(value, true)), datasets: [{ label: typeLabel(type), data: lineValues, borderColor: colors[typeKeys[type]], backgroundColor: `${colors[typeKeys[type]]}20`, fill: true, tension: .25, pointRadius: lineMonths.length > 36 ? 0 : 2, spanGaps: false }] }} options={commonOptions} /></div></div> : <div className="empty-state">{t.noData}</div>}
       </ChartPanel>
       <div className="dashboard-grid">
         <ChartPanel title={t.comparisonTitle} text={t.comparisonText} note={t.missingNote} controls={select(t.month, month, setMonth, data.dates)}>
